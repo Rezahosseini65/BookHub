@@ -45,6 +45,12 @@ INSTALLED_APPS = [
     'channels',
 
     'bookhub.auths.users',
+    'bookhub.apps.books',
+    'bookhub.apps.publishers',
+    'bookhub.apps.authors',
+    'bookhub.apps.translators',
+    'bookhub.apps.media',
+    'bookhub.apps.inventory',
 ]
 
 MIDDLEWARE = [
@@ -128,7 +134,19 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Your Project API',
+    'DESCRIPTION': 'Your project description',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
