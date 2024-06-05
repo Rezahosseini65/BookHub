@@ -10,13 +10,14 @@ class AuthorListSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class AuthorDetailSerializer(serializers.ModelSerializer):
-    book_author = serializers.SerializerMethodField()
+    books = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='book-detail',
+        source='book_author'
+    )
 
     class Meta:
         model = Author
-        fields = ('id', 'name', 'slug', 'image', 'location', 'birthday', 'biography', 'book_author')
+        fields = ('id', 'name', 'slug', 'image', 'location', 'birthday', 'biography', 'books')
 
-    def get_book_author(self, obj):
-        from bookhub.apps.books.serializers import BookListSerializer
-        books = obj.book_author.all()
-        return BookListSerializer(books, many=True, read_only=True).data
